@@ -1,0 +1,18 @@
+{
+  "docs/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md": "5f64480f2f2d655be99f5d5af90854efa61c032dae28720ee56b8dc33312e808",
+  "app/Http/Controllers/GetwabPluginMcpController.php": "24777c69a5c3f23a88d2e4768b5cae1f1e36a71184582f38e3c7fd3b01967aa9",
+  "app/Services/ProcurementPromptRegistry.php": "b79976633773468422e8325f3f2b42eba37b501d489e2ff9a3379253248dcb76",
+  "public/fpds_query_prompt.txt": "43c79a46c4b418e05e89671dd3ecd360030ad03bc1bee1291563a4d0663ef808",
+  "public/sam_opportunities_prompt.txt": "c5b3576d05565674fda353ed19ad24bf497c1ece1d135ab8fae44b38db07ddf6",
+  "public/sam_opportunities_archive_prompt.txt": "7c1f9a61e439333fb0e1c96b1e401333acf6720a3667d0f88eff1c8182c76736",
+  "public/sam_entities_prompt.txt": "b6533006e60d8c57706c1522567ca068f285b4f6a7b9e67ae98a6ff790443df3",
+  "public/sam_exclusions_prompt.txt": "7bc83daa771297d39ee91f2452eb7fba66116bf157374f9d0ae0bda6b9bde913",
+  "public/sam_subcontracts_prompt.txt": "781def9ed288d378c5649247d6da17bbfb2e6cad00b9bc7ade09a9b85500c743",
+  "public/sam_subcontracts_news_research_prompt.txt": "ec9960bbb11016d400dede767030ef0388427ff807bf111d206bfc9b2eb1bae1",
+  "public/sam_assistance_subawards_prompt.txt": "bc76415850cea418b9c55f99358a7255eeafded1699ec5ae43237194d0de5a7a",
+  "public/sam_assistance_subawards_news_research_prompt.txt": "cca521a4cdb77dfb3e4ea498e1f7f9f71c39aebbe080b07268bba4aedd04a4e6",
+  "public/gsa_contracts_prompt.txt": "afd4de841379140e3db05fac185ecebae8b5e43d46a77b95ad996b8d427b2ba7",
+  "public/forecasting_prompt.txt": "8a1de0854c7640eea1d81bb23bd8a450ca50db7e773e7a6fdf294538282805fe",
+  "public/sba_subnet_opportunities_prompt.txt": "6e7240df151559f11035be09642884ae1db9adf7f267f1a3ef775e39ea7563f7",
+  "public/sba_subcontracting_plans_prompt.txt": "2fb76228d58048d662a672f7ab2f9000b7e46dc0493366b008b87dba5099b45c"
+}

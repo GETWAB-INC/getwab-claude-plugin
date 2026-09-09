@@ -1,0 +1,3164 @@
+[
+  {
+    "name": "get_data_catalog",
+    "description": "Explain what GETWAB can research and list its official federal procurement datasets in plain language. Use when the user asks what this app can do, what data it covers, or where to search.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string"
+        },
+        "developer": {
+          "type": "string"
+        },
+        "independent": {
+          "type": "boolean"
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "freshness": {
+          "type": "string"
+        },
+        "playbooks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "research_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "disclaimer": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "platform",
+        "developer",
+        "independent",
+        "datasets",
+        "freshness",
+        "playbooks",
+        "research_url",
+        "disclaimer",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "plan_research",
+    "description": "Classify a natural-language federal procurement question and plan the required single- or cross-dataset research workflow.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        }
+      },
+      "required": [
+        "question"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "playbooks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "single_workflow",
+            "cross_dataset"
+          ]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "question",
+        "intents",
+        "datasets",
+        "tools",
+        "playbooks",
+        "strategy",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "analyze_awards",
+    "description": "Run a validated, read-only FPDS aggregation for spending, award counts, vendors, incumbents, competitors, agencies, NAICS, or PSC. Prefer this over text search for totals, trends, rankings, comparisons, or fiscal-year questions.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "group_by": {
+          "type": "string",
+          "enum": [
+            "market",
+            "fiscal_year",
+            "vendor",
+            "agency",
+            "naics",
+            "psc"
+          ]
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "naics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "psc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "agency": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "vendor": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "uei": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "cage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        }
+      },
+      "required": [
+        "group_by"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "query_plan": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "research_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "total_groups": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "market": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "methodology": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "query_plan",
+        "research_url",
+        "total_groups",
+        "records",
+        "methodology",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_awards",
+    "description": "Search paginated historical FPDS federal contract awards by PIID, agency, vendor, CAGE, UEI, or exact structured NAICS/PSC filters. Use analyze_awards with group_by=market for spending, agency, vendor, and trend analysis.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "naics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "psc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 25
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "query": {
+          "type": "string"
+        },
+        "date_from": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "date_to": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "methodology": {
+          "type": "string"
+        },
+        "authoritative_source": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "query",
+        "date_from",
+        "date_to",
+        "summary",
+        "methodology",
+        "authoritative_source",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_opportunities",
+    "description": "Search paginated current or archived SAM.gov contract opportunities using keywords and status. For \"all\" requests, continue through next_page or disclose partial coverage.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "all",
+            "active",
+            "open",
+            "awarded",
+            "closed",
+            "archived"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "query": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "authoritative_source": {
+          "type": "string"
+        },
+        "caveat": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "query",
+        "status",
+        "authoritative_source",
+        "caveat",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "match_opportunities",
+    "description": "Find paginated federal opportunities matching a company profile supplied as text or extracted from a capability statement. Returned candidates are not proof of eligibility or win probability.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "company_profile": {
+          "type": "string",
+          "maxLength": 12000
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12
+        },
+        "naics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12
+        },
+        "agencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 8
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "open"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "company_profile"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "matching_mode": {
+          "type": "string"
+        },
+        "keywords_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "naics_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "agencies_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "methodology": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "matching_mode",
+        "keywords_used",
+        "naics_used",
+        "agencies_used",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "methodology",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_vendors",
+    "description": "Search paginated federal contractors and summarize their FPDS obligations, actions, agencies, NAICS, and PSC activity. Do not infer ownership from name similarity.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_entities",
+    "description": "Search SAM.gov entity registrations with an explicit match mode and pagination. Never infer a corporate-family relationship from a name match. For \"all\" requests, continue through next_page or disclose partial coverage.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "match_mode": {
+          "type": "string",
+          "enum": [
+            "legal_name_or_dba",
+            "exact_legal_name",
+            "broad"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "match_mode": {
+          "type": "string"
+        },
+        "relationship_policy": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "match_mode",
+        "relationship_policy",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_exclusions",
+    "description": "Search paginated official SAM.gov exclusion records by name, UEI, CAGE, agency, type, and lifecycle status. Do not infer a clean record when coverage is incomplete.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "cage": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "lifecycle": {
+          "type": "string",
+          "enum": [
+            "all",
+            "active",
+            "inactive"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "source_interpretation": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "source_interpretation",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_subcontracts",
+    "description": "Search paginated reported federal contract subawards by subcontractor, prime, UEI, PIID, agency, NAICS, or keywords. Do not infer relationships from names alone.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_subnet_opportunities",
+    "description": "Search current SBA SUBNet subcontracting opportunity listings published by prime contractors. These are open leads, not awarded subcontracts.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "naics": {
+          "type": "string",
+          "maxLength": 6
+        },
+        "psc": {
+          "type": "string",
+          "maxLength": 8,
+          "description": "Requested PSC used for relevance review; SBA SUBNet does not publish a structured PSC field."
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "open",
+            "all",
+            "closed",
+            "unknown_deadline"
+          ]
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "source_interpretation": {
+          "type": "string"
+        },
+        "psc_requested": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "psc_filter_supported": {
+          "type": "boolean"
+        },
+        "fallback_evidence": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "source_interpretation",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_subcontracting_plans",
+    "description": "Search SBA annual prime-contractor directory records associated with subcontracting plans. Directory presence is not an open opportunity or an awarded subcontract.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "naics": {
+          "type": "string",
+          "maxLength": 6
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "agency": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "fiscal_year": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2100
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "all",
+            "potentially_ongoing"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "source_interpretation": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "source_interpretation",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_acquisition_forecasts",
+    "description": "Search federal agency acquisition forecasts for planned requirements, expected solicitations and awards, agencies, offices, NAICS/PSC codes, set-asides, values, and reported incumbents. Forecasts are planning signals, not solicitations or awards.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "agency": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "office": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "naics": {
+          "type": "string",
+          "maxLength": 6
+        },
+        "psc": {
+          "type": "string",
+          "maxLength": 8
+        },
+        "incumbent": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "set_aside": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "fco",
+            "apfs",
+            "hhs_sbcx"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "all"
+          ]
+        },
+        "solicitation_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "solicitation_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "award_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "award_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "award_fiscal_year": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2100
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "source_interpretation": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "source_interpretation",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_gsa_contracts",
+    "description": "Search the GSA eLibrary contract directory by vendor, UEI, contract number, category, geography, availability, and socioeconomic designation.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "vendor": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "contract": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "availability": {
+          "type": "string",
+          "enum": [
+            "all",
+            "open",
+            "closed"
+          ]
+        },
+        "designation": {
+          "type": "string",
+          "enum": [
+            "small_business",
+            "woman_owned",
+            "wosb",
+            "edwosb",
+            "veteran_owned",
+            "sdvosb",
+            "small_disadvantaged",
+            "eight_a",
+            "hubzone",
+            "tribal"
+          ]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_assistance_subawards",
+    "description": "Search reported federal assistance subawards, including grants and cooperative-agreement flow-downs. Do not confuse assistance subawards with procurement contract subawards.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "subrecipient": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "subrecipient_uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "prime": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "prime_uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "agency": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "listing": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "fain": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "summary": {
+          "type": [
+            "object",
+            "array"
+          ]
+        },
+        "source_interpretation": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "summary",
+        "source_interpretation",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "search_archived_opportunities",
+    "description": "Search archived SAM.gov opportunity notices and historical solicitation versions to research how a requirement appeared previously. These records are not current open opportunities.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 240
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "date_to": {
+          "type": "string",
+          "format": "date"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Alias for page_size."
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "total_matches": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "returned_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "page_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "next_page": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filters_applied": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "getwab_result_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "query": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "authoritative_source": {
+          "type": "string"
+        },
+        "caveat": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dataset",
+        "available",
+        "coverage_status",
+        "total_matches",
+        "returned_records",
+        "page",
+        "page_size",
+        "next_page",
+        "filters_applied",
+        "getwab_result_url",
+        "records",
+        "query",
+        "status",
+        "authoritative_source",
+        "caveat",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  },
+  {
+    "name": "research_vendor",
+    "description": "Run a cross-dataset vendor investigation across FPDS history, SAM entities, SAM exclusions, and contract subawards.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "uei": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "cage": {
+          "type": "string",
+          "maxLength": 10
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "session_id": {
+          "type": "string",
+          "maxLength": 120
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "research_type": {
+          "type": "string"
+        },
+        "identity_searched": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string"
+            },
+            "uei": {
+              "type": "string"
+            },
+            "cage": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "query",
+            "uei",
+            "cage"
+          ],
+          "additionalProperties": false
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coverage_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unsupported",
+            "unavailable"
+          ]
+        },
+        "vendor_history": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summary": {
+              "type": [
+                "object",
+                "array"
+              ]
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": [
+            "total",
+            "records"
+          ],
+          "additionalProperties": false
+        },
+        "sam_entities": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summary": {
+              "type": [
+                "object",
+                "array"
+              ]
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": [
+            "total",
+            "records"
+          ],
+          "additionalProperties": false
+        },
+        "sam_exclusions": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summary": {
+              "type": [
+                "object",
+                "array"
+              ]
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": [
+            "total",
+            "records"
+          ],
+          "additionalProperties": false
+        },
+        "contract_subawards": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summary": {
+              "type": [
+                "object",
+                "array"
+              ]
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          },
+          "required": [
+            "total",
+            "records"
+          ],
+          "additionalProperties": false
+        },
+        "identity_note": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "access": {
+          "type": "object",
+          "properties": {
+            "tier": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "authenticated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tier",
+            "remaining",
+            "authenticated"
+          ],
+          "additionalProperties": false
+        },
+        "rendering_contract": {
+          "type": "string"
+        },
+        "allowed_link_domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "research_type",
+        "identity_searched",
+        "datasets",
+        "coverage_status",
+        "vendor_history",
+        "sam_entities",
+        "sam_exclusions",
+        "contract_subawards",
+        "identity_note",
+        "request_id",
+        "access"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false,
+      "destructiveHint": false
+    },
+    "securitySchemes": [
+      {
+        "type": "noauth"
+      }
+    ]
+  }
+]

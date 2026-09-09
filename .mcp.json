@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "getwab": {
+      "type": "http",
+      "url": "https://www.getwab.com/api/plugin/v1/mcp"
+    }
+  }
+}

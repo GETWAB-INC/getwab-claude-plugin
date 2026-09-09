@@ -1,0 +1,653 @@
+{
+  "canon_version": "1.0.0",
+  "datasets": {
+    "fpds_awards": {
+      "dataset_id": "fpds_awards",
+      "source_name": "FPDS",
+      "record_type": null,
+      "tool": "search_awards",
+      "record_keys": [
+        "award_key"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.piid": [
+          "piid"
+        ],
+        "organizations.vendor.legal_name": [
+          "vendor_name"
+        ],
+        "organizations.vendor.uei": [
+          "uei"
+        ],
+        "organizations.vendor.cage": [
+          "cage_code"
+        ],
+        "agencies.agency.code": [
+          "agency_code"
+        ],
+        "agencies.agency.name": [
+          "agency_name"
+        ]
+      }
+    },
+    "sam_opportunities": {
+      "dataset_id": "sam_opportunities",
+      "source_name": "SAM.gov",
+      "record_type": "contract_opportunity_notice",
+      "tool": "search_opportunities",
+      "record_keys": [
+        "notice_id"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.notice_id": [
+          "notice_id"
+        ],
+        "identifiers.solicitation_number": [
+          "solicitation"
+        ],
+        "identifiers.award_number": [
+          "award_number"
+        ],
+        "organizations.awardee.legal_name": [
+          "awardee"
+        ],
+        "organizations.awardee.uei": [
+          "awardee_uei"
+        ],
+        "organizations.awardee.cage": [
+          "awardee_cage_code"
+        ],
+        "agencies.department.name": [
+          "department"
+        ],
+        "agencies.department.code": [
+          "cgac"
+        ],
+        "agencies.agency.name": [
+          "sub_tier"
+        ],
+        "agencies.agency.code": [
+          "fpds_code"
+        ],
+        "agencies.office.name": [
+          "office"
+        ],
+        "agencies.office.code": [
+          "aac_code"
+        ],
+        "dates.posted_at": [
+          "posted_at"
+        ],
+        "dates.response_deadline_at": [
+          "deadline_at",
+          "deadline"
+        ],
+        "dates.archive_at": [
+          "archive_date"
+        ],
+        "dates.award_at": [
+          "award_date"
+        ],
+        "financials.award_amount": [
+          "award_amount"
+        ]
+      }
+    },
+    "sam_entities": {
+      "dataset_id": "sam_entities",
+      "source_name": "SAM.gov",
+      "record_type": "sam_entity_registration",
+      "tool": "search_entities",
+      "record_keys": [
+        "uei"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.uei": [
+          "uei"
+        ],
+        "identifiers.cage": [
+          "cage"
+        ],
+        "organizations.subject.legal_name": [
+          "name"
+        ],
+        "organizations.subject.dba_name": [
+          "dba_name"
+        ],
+        "organizations.subject.uei": [
+          "uei"
+        ],
+        "organizations.subject.cage": [
+          "cage"
+        ]
+      }
+    },
+    "sam_exclusions": {
+      "dataset_id": "sam_exclusions",
+      "source_name": "SAM.gov",
+      "record_type": "sam_exclusion_record",
+      "tool": "search_exclusions",
+      "record_keys": [
+        "record_key"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "record_status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.uei": [
+          "uei"
+        ],
+        "identifiers.cage": [
+          "cage"
+        ],
+        "organizations.subject.legal_name": [
+          "entity_name"
+        ],
+        "organizations.subject.uei": [
+          "uei"
+        ],
+        "organizations.subject.cage": [
+          "cage"
+        ],
+        "agencies.agency.name": [
+          "agency_name"
+        ],
+        "agencies.agency.code": [
+          "agency_code"
+        ]
+      }
+    },
+    "sam_contract_subawards": {
+      "dataset_id": "sam_contract_subawards",
+      "source_name": "SAM.gov",
+      "record_type": "contract_subaward",
+      "tool": "search_subcontracts",
+      "record_keys": [
+        "record_key"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.piid": [
+          "piid"
+        ],
+        "identifiers.subaward_number": [
+          "subaward_number"
+        ],
+        "organizations.prime.legal_name": [
+          "prime_name"
+        ],
+        "organizations.prime.uei": [
+          "prime_uei"
+        ],
+        "organizations.subcontractor.legal_name": [
+          "subcontractor_name"
+        ],
+        "organizations.subcontractor.uei": [
+          "subcontractor_uei"
+        ],
+        "financials.subaward_amount": [
+          "amount"
+        ],
+        "financials.total_contract_value": [
+          "total_contract_value"
+        ]
+      }
+    },
+    "sba_subnet_opportunities": {
+      "dataset_id": "sba_subnet_opportunities",
+      "source_name": "SBA SUBNet",
+      "record_type": "open_subcontracting_lead",
+      "tool": "search_subnet_opportunities",
+      "record_keys": [
+        "opportunity_id"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "organizations.prime.legal_name": [
+          "prime_contractor"
+        ],
+        "dates.response_deadline_at": [
+          "response_deadline"
+        ],
+        "dates.performance_start_at": [
+          "performance_start_date"
+        ]
+      }
+    },
+    "sba_subcontracting_plans": {
+      "dataset_id": "sba_subcontracting_plans",
+      "source_name": "SBA subcontracting plans",
+      "record_type": "subcontracting_plan_directory_record",
+      "tool": "search_subcontracting_plans",
+      "record_keys": [
+        "record_id"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.piid": [
+          "piid"
+        ],
+        "identifiers.uei": [
+          "uei"
+        ],
+        "organizations.prime.legal_name": [
+          "prime_contractor"
+        ],
+        "organizations.prime.uei": [
+          "uei"
+        ],
+        "organizations.ultimate_parent.legal_name": [
+          "ultimate_parent_name"
+        ],
+        "organizations.ultimate_parent.uei": [
+          "ultimate_parent_uei"
+        ],
+        "agencies.department.name": [
+          "contracting_department_name"
+        ],
+        "agencies.agency.name": [
+          "contracting_agency_name"
+        ],
+        "agencies.office.name": [
+          "contracting_office_name"
+        ],
+        "dates.performance_start_at": [
+          "performance_start_date"
+        ],
+        "dates.performance_end_at": [
+          "completion_date"
+        ],
+        "dates.fiscal_year": [
+          "fiscal_year"
+        ],
+        "financials.total_contract_value": [
+          "total_contract_value"
+        ]
+      }
+    },
+    "sam_assistance_subawards": {
+      "dataset_id": "sam_assistance_subawards",
+      "source_name": "SAM.gov",
+      "record_type": "assistance_subaward",
+      "tool": "search_assistance_subawards",
+      "record_keys": [
+        "record_key"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.fain": [
+          "fain"
+        ],
+        "identifiers.subaward_number": [
+          "subaward_number"
+        ],
+        "organizations.prime.legal_name": [
+          "prime_name"
+        ],
+        "organizations.prime.uei": [
+          "prime_uei"
+        ],
+        "organizations.subrecipient.legal_name": [
+          "subrecipient_name"
+        ],
+        "organizations.subrecipient.dba_name": [
+          "subrecipient_dba"
+        ],
+        "organizations.subrecipient.uei": [
+          "subrecipient_uei"
+        ],
+        "agencies.department.name": [
+          "awarding_department_name"
+        ],
+        "agencies.department.code": [
+          "awarding_department_code"
+        ],
+        "agencies.agency.name": [
+          "awarding_agency_name"
+        ],
+        "agencies.agency.code": [
+          "awarding_agency_code"
+        ],
+        "agencies.office.name": [
+          "awarding_office_name"
+        ],
+        "agencies.office.code": [
+          "awarding_office_code"
+        ],
+        "dates.action_at": [
+          "action_at"
+        ],
+        "financials.subaward_amount": [
+          "amount"
+        ]
+      }
+    },
+    "gsa_elibrary_contracts": {
+      "dataset_id": "gsa_elibrary_contracts",
+      "source_name": "GSA eLibrary",
+      "record_type": "gsa_schedule_contract",
+      "tool": "search_gsa_contracts",
+      "record_keys": [
+        "record_key"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.gsa_contract_number": [
+          "contract_number"
+        ],
+        "identifiers.uei": [
+          "uei"
+        ],
+        "organizations.vendor.legal_name": [
+          "vendor"
+        ],
+        "organizations.vendor.uei": [
+          "uei"
+        ],
+        "classifications.business_designations": [
+          "designations"
+        ]
+      }
+    },
+    "acquisition_forecasts": {
+      "dataset_id": "acquisition_forecasts",
+      "source_name": null,
+      "record_type": "acquisition_forecast",
+      "tool": "search_acquisition_forecasts",
+      "record_keys": [
+        "source_record_id"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.solicitation_number": [
+          "solicitation_number"
+        ],
+        "organizations.incumbent.legal_name": [
+          "incumbent_name"
+        ],
+        "agencies.department.name": [
+          "department_name"
+        ],
+        "agencies.department.code": [
+          "department_code"
+        ],
+        "agencies.agency.name": [
+          "agency_name"
+        ],
+        "agencies.agency.code": [
+          "agency_code"
+        ],
+        "agencies.office.name": [
+          "contracting_office_name"
+        ],
+        "agencies.office.code": [
+          "contracting_office_code"
+        ],
+        "dates.solicitation_estimated_at": [
+          "estimated_solicitation_at"
+        ],
+        "dates.award_estimated_at": [
+          "estimated_award_at"
+        ],
+        "dates.fiscal_year": [
+          "estimated_award_fiscal_year"
+        ],
+        "dates.performance_start_at": [
+          "period_of_performance_start"
+        ],
+        "dates.performance_end_at": [
+          "period_of_performance_end"
+        ],
+        "financials.estimated_value_min": [
+          "estimated_value_min"
+        ],
+        "financials.estimated_value_max": [
+          "estimated_value_max"
+        ],
+        "financials.projected_obligation": [
+          "projected_obligation"
+        ]
+      }
+    },
+    "sam_opportunities_archive": {
+      "dataset_id": "sam_opportunities_archive",
+      "source_name": "SAM.gov",
+      "record_type": "archived_contract_opportunity_notice",
+      "tool": "search_archived_opportunities",
+      "record_keys": [
+        "notice_id"
+      ],
+      "fields": {
+        "title": [
+          "title"
+        ],
+        "status": [
+          "status"
+        ],
+        "source_updated_at": [
+          "source_updated_at"
+        ],
+        "identifiers.notice_id": [
+          "notice_id"
+        ],
+        "identifiers.solicitation_number": [
+          "solicitation"
+        ],
+        "identifiers.award_number": [
+          "award_number"
+        ],
+        "organizations.awardee.legal_name": [
+          "awardee"
+        ],
+        "organizations.awardee.uei": [
+          "awardee_uei"
+        ],
+        "organizations.awardee.cage": [
+          "awardee_cage_code"
+        ],
+        "agencies.department.name": [
+          "department"
+        ],
+        "agencies.department.code": [
+          "cgac"
+        ],
+        "agencies.agency.name": [
+          "sub_tier"
+        ],
+        "agencies.agency.code": [
+          "fpds_code"
+        ],
+        "agencies.office.name": [
+          "office"
+        ],
+        "agencies.office.code": [
+          "aac_code"
+        ],
+        "dates.posted_at": [
+          "posted_at"
+        ],
+        "dates.response_deadline_at": [
+          "deadline_at",
+          "deadline"
+        ],
+        "dates.archive_at": [
+          "archive_date"
+        ],
+        "dates.award_at": [
+          "award_date"
+        ],
+        "financials.award_amount": [
+          "award_amount"
+        ]
+      }
+    }
+  },
+  "tools": {
+    "search_awards": {
+      "dataset_id": "fpds_awards"
+    },
+    "search_opportunities": {
+      "dataset_id": "sam_opportunities"
+    },
+    "search_entities": {
+      "dataset_id": "sam_entities"
+    },
+    "search_exclusions": {
+      "dataset_id": "sam_exclusions"
+    },
+    "search_subcontracts": {
+      "dataset_id": "sam_contract_subawards"
+    },
+    "search_subnet_opportunities": {
+      "dataset_id": "sba_subnet_opportunities"
+    },
+    "search_subcontracting_plans": {
+      "dataset_id": "sba_subcontracting_plans"
+    },
+    "search_assistance_subawards": {
+      "dataset_id": "sam_assistance_subawards"
+    },
+    "search_gsa_contracts": {
+      "dataset_id": "gsa_elibrary_contracts"
+    },
+    "search_acquisition_forecasts": {
+      "dataset_id": "acquisition_forecasts"
+    },
+    "search_archived_opportunities": {
+      "dataset_id": "sam_opportunities_archive"
+    },
+    "match_opportunities": {
+      "dataset_id": "sam_opportunities"
+    },
+    "search_vendors": {
+      "dataset_id": "fpds_awards",
+      "record_granularity": "vendor_aggregate",
+      "fields": {
+        "organizations.vendor.legal_name": ["name"],
+        "organizations.vendor.uei": ["uei"],
+        "organizations.vendor.cage": ["cage"]
+      }
+    },
+    "analyze_awards": {
+      "dataset_id": "fpds_awards",
+      "record_granularity": "analytical_group",
+      "fields": {
+        "organizations.vendor.cage": ["cage"]
+      }
+    },
+    "research_vendor": {
+      "groups": {
+        "vendor_history": "search_vendors",
+        "sam_entities": "search_entities",
+        "sam_exclusions": "search_exclusions",
+        "contract_subawards": "search_subcontracts"
+      }
+    },
+    "get_data_catalog": {
+      "kind": "catalog"
+    },
+    "plan_research": {
+      "kind": "plan"
+    }
+  },
+  "input_aliases": {
+    "naics_codes": "naics",
+    "psc_codes": "psc"
+  },
+  "unsupported_filters": {
+    "search_subcontracts": [
+      "date_from",
+      "date_to"
+    ],
+    "search_archived_opportunities": [
+      "date_from",
+      "date_to"
+    ]
+  },
+  "fallback_groups": {
+    "historical_contract_subawards": "search_subcontracts",
+    "sba_subcontracting_plans": "search_subcontracting_plans",
+    "open_federal_opportunities": "search_opportunities"
+  }
+}

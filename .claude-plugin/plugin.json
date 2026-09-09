@@ -1,0 +1,9 @@
+{
+  "name": "getwab-claude",
+  "version": "1.0.0",
+  "description": "Research federal opportunities, award markets, entities, exclusions, subcontracting, GSA contracts and acquisition forecasts with GETWAB.",
+  "author": {
+    "name": "GETWAB INC."
+  },
+  "homepage": "https://www.getwab.com"
+}

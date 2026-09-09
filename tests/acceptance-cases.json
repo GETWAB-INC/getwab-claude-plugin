@@ -1,0 +1,159 @@
+[
+  {
+    "tool": "get_data_catalog",
+    "canonical_arguments": {},
+    "expected": "Describe available datasets in plain language."
+  },
+  {
+    "tool": "plan_research",
+    "canonical_arguments": {
+      "question": "Find IT opportunities and research the incumbent and exclusions."
+    },
+    "expected": "Plan separates notices, FPDS and entity/exclusion evidence."
+  },
+  {
+    "tool": "analyze_awards",
+    "canonical_arguments": {
+      "group_by": "market",
+      "naics_codes": [
+        "541512"
+      ],
+      "psc_codes": [
+        "DA01"
+      ],
+      "date_from": "2025-10-01",
+      "date_to": "2026-09-30"
+    },
+    "expected": "Structured code intersection, net obligations, limited rankings."
+  },
+  {
+    "tool": "search_awards",
+    "canonical_arguments": {
+      "query": "Lockheed Martin",
+      "page": 1,
+      "page_size": 25
+    },
+    "expected": "Grouped agency/PIID rows; do not label each a transaction."
+  },
+  {
+    "tool": "search_opportunities",
+    "canonical_arguments": {
+      "query": "NAICS 541512 PSC DA01",
+      "status": "open"
+    },
+    "expected": "Review returned codes, deadlines and source notice type; text-parser limitation explicit."
+  },
+  {
+    "tool": "match_opportunities",
+    "canonical_arguments": {
+      "company_profile": "Small business providing systems integration; NAICS 541512.",
+      "keywords": [
+        "systems integration"
+      ],
+      "naics_codes": [
+        "541512"
+      ],
+      "status": "open"
+    },
+    "expected": "Explain fit and gaps without invented match score."
+  },
+  {
+    "tool": "search_vendors",
+    "canonical_arguments": {
+      "query": "Leidos"
+    },
+    "expected": "Separate identifiers and limited vendor aggregates."
+  },
+  {
+    "tool": "search_entities",
+    "canonical_arguments": {
+      "query": "Lockheed Martin",
+      "match_mode": "legal_name_or_dba",
+      "page": 1,
+      "page_size": 50
+    },
+    "expected": "Keep registrations separate; paginate before any all-record claim."
+  },
+  {
+    "tool": "search_exclusions",
+    "canonical_arguments": {
+      "uei": "ABCDEF123456",
+      "lifecycle": "all"
+    },
+    "expected": "Synthetic ID only for offline validation; live test uses returned real ID; official classification unchanged."
+  },
+  {
+    "tool": "search_subcontracts",
+    "canonical_arguments": {
+      "query": "systems integration"
+    },
+    "expected": "Reported historical subawards, no claim of applied date filter."
+  },
+  {
+    "tool": "search_subnet_opportunities",
+    "canonical_arguments": {
+      "naics_codes": [
+        "541512"
+      ],
+      "psc_codes": [
+        "DA01"
+      ],
+      "status": "open"
+    },
+    "expected": "PSC relevance only; fallback sources remain distinct."
+  },
+  {
+    "tool": "search_subcontracting_plans",
+    "canonical_arguments": {
+      "naics_codes": [
+        "541512"
+      ],
+      "status": "potentially_ongoing"
+    },
+    "expected": "Directory context, no guaranteed opening or available dollars."
+  },
+  {
+    "tool": "search_acquisition_forecasts",
+    "canonical_arguments": {
+      "naics_codes": [
+        "541512"
+      ],
+      "psc_codes": [
+        "DA01"
+      ],
+      "status": "active"
+    },
+    "expected": "Estimated dates/values; source-qualified identity."
+  },
+  {
+    "tool": "search_gsa_contracts",
+    "canonical_arguments": {
+      "vendor": "Leidos",
+      "category": "54151S",
+      "availability": "open"
+    },
+    "expected": "SIN not NAICS; contract availability not solicitation."
+  },
+  {
+    "tool": "search_assistance_subawards",
+    "canonical_arguments": {
+      "query": "research"
+    },
+    "expected": "Grant/cooperative flow-downs separate from contract subawards."
+  },
+  {
+    "tool": "search_archived_opportunities",
+    "canonical_arguments": {
+      "query": "systems integration"
+    },
+    "expected": "Historical notices not currently open."
+  },
+  {
+    "tool": "research_vendor",
+    "canonical_arguments": {
+      "query": "Leidos",
+      "limit": 5
+    },
+    "expected": "Limited previews; do not claim entire corporate family."
+  }
+]
