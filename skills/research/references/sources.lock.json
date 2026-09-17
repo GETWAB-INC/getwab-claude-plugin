@@ -1,5 +1,5 @@
 {
-  "docs/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md": "5f64480f2f2d655be99f5d5af90854efa61c032dae28720ee56b8dc33312e808",
+  "docs/plugins/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md": "5f64480f2f2d655be99f5d5af90854efa61c032dae28720ee56b8dc33312e808",
   "app/Http/Controllers/GetwabPluginMcpController.php": "24777c69a5c3f23a88d2e4768b5cae1f1e36a71184582f38e3c7fd3b01967aa9",
   "app/Services/ProcurementPromptRegistry.php": "b79976633773468422e8325f3f2b42eba37b501d489e2ff9a3379253248dcb76",
   "public/fpds_query_prompt.txt": "43c79a46c4b418e05e89671dd3ecd360030ad03bc1bee1291563a4d0663ef808",

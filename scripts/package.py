@@ -48,7 +48,7 @@ def validate():
     declared = json.loads((REF / 'upstream-tools.json').read_text())
     assert set(mapping['tools']) == {item['name'] for item in declared}, 'Tool coverage drift'
     assert len(mapping['datasets']) == 11
-    assert (REF / 'canon.md').read_bytes() == (REPO / 'docs/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md').read_bytes(), 'Canon drift: rebuild'
+    assert (REF / 'canon.md').read_bytes() == (REPO / 'docs/plugins/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md').read_bytes(), 'Canon drift: rebuild'
     import re
     for skill in (ROOT / 'skills').glob('*/SKILL.md'):
         text = skill.read_text()
@@ -70,7 +70,7 @@ def build():
     raw = subprocess.run(['php', str(ROOT / 'scripts/export-contract.php')], check=True, capture_output=True, text=True)
     contract = json.loads(raw.stdout)
     write(REF / 'upstream-tools.json', json.dumps(contract['tools'], indent=2) + '\n')
-    canon_path = REPO / 'docs/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md'
+    canon_path = REPO / 'docs/plugins/GETWAB_FEDERAL_PROCUREMENT_AI_CANON.md'
     write(REF / 'canon.md', canon_path.read_text())
     sources = [canon_path, REPO / 'app/Http/Controllers/GetwabPluginMcpController.php', REPO / 'app/Services/ProcurementPromptRegistry.php']
     for name, definition in contract['playbooks'].items():
@@ -94,6 +94,9 @@ def build():
             continue
         if relative.parts[0] in ('.claude-plugin', 'skills') or str(relative) in ('.mcp.json','README.md','ACCEPTANCE.md'):
             entries['getwab-claude/' + relative.as_posix()] = file.read_bytes()
+    for name in ('README.md', 'ACCEPTANCE.md'):
+        source = REPO / 'docs/plugins/getwab-claude' / ('GETWAB_CLAUDE_' + name)
+        entries['getwab-claude/' + name] = source.read_bytes()
     archive(dist / 'getwab-claude-plugin-1.0.0.zip', entries)
     standalone = {'getwab-research/' + p.relative_to(ROOT / 'skills/research').as_posix():p.read_bytes() for p in (ROOT / 'skills/research').rglob('*') if p.is_file() and '__pycache__' not in p.parts}
     for path in (ROOT / 'skills').glob('*/SKILL.md'):
